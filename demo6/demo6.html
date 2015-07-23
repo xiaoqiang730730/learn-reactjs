@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo6</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+</head>
+<body>
+    <div id="test6"></div>
+    <script type="text/jsx">
+    //组件并不是真实的 DOM 节点，而是存在于内存之中的一种数据结构，叫做虚拟 DOM （virtual DOM）。
+    //只有当它插入文档以后，才会变成真实的 DOM 。
+    //根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，然后再将实际发生变动的部分，反映在真实 DOM上，这种算法叫做 DOM diff ，它可以极大提高网页的性能表现。
+    var MyComponent = React.createClass({
+        handleClick: function(event){
+            var domRef = event.target.value;
+            React.findDOMNode(this.refs[domRef]).focus();
+        },
+        render: function(){
+            return <div>
+                <input type='text' ref="myTextInput"/>
+                <input type='text' ref="myTextInput2"/>
+                <input type='text' ref="myTextInput3"/>
+                <input type='text' ref="myTextInput4"/>
+                <input type='text' ref="myTextInput5"/>
+                <input type='text' ref="myTextInput6"/>
+                <input type='button' value='myTextInput' onClick={this.handleClick}/>
+                <input type='button' value='myTextInput2' onClick={this.handleClick}/>
+                <input type='button' value='myTextInput3' onClick={this.handleClick}/>
+                <input type='button' value='myTextInput4' onClick={this.handleClick}/>
+                <input type='button' value='myTextInput5' onClick={this.handleClick}/>
+                <input type='button' value='myTextInput6' onClick={this.handleClick}/>
+            </div>
+        }
+    });
+        React.render(
+            <MyComponent />,
+            document.getElementById('test6')
+        );
+    // 上面代码中，组件 MyComponent 的子节点有一个文本输入框，用于获取用户的输入。这时就必须获取真实的 DOM 节点，虚拟 DOM 是拿不到用户输入的。为了做到这一点，文本输入框必须有一个 ref 属性，然后 this.refs.[refName] 就指向这个虚拟 DOM 的子节点，最后通过 React.findDOMNode 方法获取真实 DOM 的节点。
+    // 需要注意的是，由于 React.findDOMNode 方法获取的是真实 DOM ，所以必须等到虚拟 DOM 插入文档以后，才能使用这个方法，否则会返回 null 。上面代码中，通过为组件指定 Click 事件的回调函数，确保了只有等到真实 DOM 发生 Click 事件之后，才会调用 React.findDOMNode 方法。
+    // React 组件支持很多事件，除了 Click 事件以外，还有 KeyDown 、Copy、Scroll 等
+    </script>
+</bo"dy>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo4</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+</head>
+<body>
+    <div id="test4"></div>
+    <div id='test4_2'><div>
+    <script type="text/jsx">
+        // 
+        // var helloMessage = React.createClass({
+        //   render: function(){
+        //     return <h1>hello {this.props.name}</h1>;
+        //   }
+        // });
+        // 组件名称要大写！！！！
+        // 组件属性，有一个地方需要注意，就是 class 属性需要写成 className ，for 属性需要写成 htmlFor ，
+        var HelloMessage = React.createClass({
+        render: function() {
+          console.log(this);
+          return <h1>Hello {this.props.name}</h1>;
+        }
+      });
+
+
+        React.render(
+            <HelloMessage name='xiaoming' />,
+            document.getElementById('test4')
+        );
+
+        React.render(
+            <HelloMessage name='xiaohong' />,
+            document.getElementById('test4_2')
+        );
+    </script>
+</body>
+</html>

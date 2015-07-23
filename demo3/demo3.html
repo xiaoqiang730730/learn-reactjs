@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo3</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+</head>
+<body>
+    <div id="test3"></div>
+    <script type="text/jsx">
+        var names = [<div>xiaohong</div>, <div>xiaoming</div>];
+        React.render(
+            <div>{names}</div>,
+            document.getElementById('test3')
+        );
+
+        // 1.
+        // names = ['xiaohong','xiaoming']
+       // <div id="test3">
+      //  <div data-reactid=".0">
+      //   <span data-reactid=".0.0">xiaohong</span>
+      //   <span data-reactid=".0.1">xiaoming</span>
+      //  </div>
+      // </div>
+      //  这种情况（变量是js类型变量）react 会自动添加span标签 并且会添加data属性
+      //  2.
+      //  names = [<div>xiaohong</div>, <div>xiaoming</div>]
+      //  <div id="test3">
+      //  <div data-reactid=".0">
+      //   <div data-reactid=".0.0">
+      //    xiaohong
+      //   </div>
+      //   <div data-reactid=".0.1">
+      //    xiaoming
+      //   </div>
+      //  </div>
+      // </div>
+      // 这种情况（变量是html变量）react 会根据变量内容渲染dom
+    </script>
+</body>
+</html>

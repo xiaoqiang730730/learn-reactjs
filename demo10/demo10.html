@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo10</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+    <script type="text/javascript" src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js'></script>
+    <style type="text/css">
+        p{
+            border:1px solid #f0f;
+            background-color:#7AE8DA;
+        }
+    </style>
+</head>
+<body>
+    <div id="test10"></div>
+    <script type="text/jsx">
+        var UserGist = React.createClass({
+            getInitialState: function(){
+                return {
+                    userName: '',
+                    lastGistUrl: ''
+                };
+            },
+
+            // 页面刷新不能重新渲染
+            componentDidMount: function(){
+                $.get(this.props.source, function(result){
+                    var lastGist = result[0];
+                    if(this.isMounted()){
+                        this.setState({
+                            userName: lastGist.owner.login,
+                            lastGistUrl: lastGist.html_url
+                        });
+                    }
+                }.bind(this));
+            },
+            render: function(){
+                return (
+                    <div>
+                    {this.state.userName}is last gist is <a href={this.state.lastGistUrl}>here</a>
+                    </div>
+                    );
+            }
+        });
+
+        React.render(
+            <UserGist source = 'http://api.github.com/users/octocat/gists' />,
+            document.getElementById('test10')
+            )
+    </script>
+</body>
+</html>
