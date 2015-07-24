@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo11</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+    <script type="text/javascript" src='../js/react-with-addons.js'></script>
+    <style type="text/css">
+        p{
+            border:1px solid #f0f;
+            background-color:#7AE8DA;
+        }
+        .example-enter {
+          opacity: 0.01;
+          transition: opacity .5s ease-in;
+        }
+
+        .example-enter.example-enter-active {
+          opacity: 1;
+        }
+        .example-leave {
+          opacity: 1;
+          transition: opacity .5s ease-in;
+        }
+
+        .example-leave.example-leave-active {
+          opacity: 0.01;
+        }
+    </style>
+</head>
+<body>
+    <div id="test11"></div>
+    <script type="text/jsx">
+        var ReactCssTransitionGroup = React.addons.CSSTransitionGroup;
+        var TodoList = React.createClass({
+            getInitialState: function(){
+                return {
+                    items: ['hello', 'world', 'click', 'me']
+                };
+            },
+            handleAdd: function(){
+                var newItems = this.state.items.concat([prompt('Enter some text')]);
+                this.setState({items: newItems});
+            },
+            handleRemove: function(i){
+                var newItems = this.state.items;
+                newItems.splice(i,1);
+                this.setState({items: newItems});
+            },
+            render: function(){
+                var items = this.state.items.map(function(item, i){
+                    return (
+                        <div key={item} onClick={this.handleRemove.bind(this, i)}>{item}</div>
+                        );
+                }.bind(this));
+                return (
+                    <div>
+                        <button onClick={this.handleAdd}>Add Item</button>
+                        <ReactCssTransitionGroup transitionName = 'example'>{items}</ReactCssTransitionGroup>
+                    </div>
+
+                    );
+            }
+        });
+
+        React.render(
+            <TodoList />,
+            document.getElementById('test11')
+            );
+    </script>
+</body>
+</html>
