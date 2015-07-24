@@ -14,6 +14,7 @@
 </head>
 <body>
     <div id="test8"></div>
+    <div id="todo"></div>
     <script type="text/jsx">
         var Input = React.createClass({
             getInitialState: function(){
@@ -42,6 +43,56 @@
             document.getElementById('test8')
             );
     // 文本输入框的值，不能用 this.props.value 读取，而要定义一个 onChange 事件的回调函数，通过 event.target.value 读取用户输入的值。textarea 元素、select元素、radio元素都属于这种情况
+    // 
+    // 
+    var TodoList = React.createClass({
+        render: function(){
+            var createItem = function(itemText){
+                return <li>{itemText}</li>
+            };
+            return <ul>{this.props.items.map(createItem)}</ul>
+        }
+    });
+
+    var TodoApp = React.createClass({
+        getInitialState: function(){
+            return {
+                items: ['sdfsdfsd'],
+                text: 'sdfsdfsd'
+            };
+        },
+        onChange: function(e){
+            this.setState({
+                text: e.target.value
+            });
+        },
+        handleSubmit: function(e){
+            e.preventDefault();
+            var nextItems = this.state.items.concat([this.state.text]);
+            var nextText = '';
+            this.setState({
+                items: nextItems,
+                text: nextText
+            });
+        },
+        render: function(){
+            return (
+                <div>
+                <h3>TODO</h3>
+                <TodoList items={this.state.items} />
+                <form onSubmit={this.handleSubmit}>
+                <input onChange={this.onChange} value={this.state.text}/>
+                <input type='submit'  value={'Add #' + (this.state.items.length + 1)}/>
+                </form>
+                </div>
+
+                );
+        }
+    });
+    React.render(
+        <TodoApp />,
+        document.getElementById('todo')
+        )
     </script>
 </body>
 </html>
