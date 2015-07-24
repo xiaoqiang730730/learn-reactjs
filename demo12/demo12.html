@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo12</title>
+    <script type="text/javascript" src='../js/react.js'></script>
+    <script type="text/javascript" src='../js/react-with-addons.js'></script>
+    <script type="text/javascript" src='../js/JSXTransformer.js'></script>
+    <style type="text/css">
+        p{
+            border:1px solid #f0f;
+            background-color:#7AE8DA;
+        }
+    </style>
+</head>
+<body>
+    <div id="test11"></div>
+    <div id="test11_1"></div>
+
+    <script type="text/jsx">
+        // No ReactLink
+        var Input = React.createClass({
+            getInitialState: function(){
+                return {
+                    value:'hello'
+                };
+            },
+            handleChange: function(event){
+                this.setState({
+                    value: event.target.value
+                });
+            },
+            render: function(){
+                var value = this.state.value;
+                return (
+                    <div>
+                        <input type='text' value= {value} onChange={this.handleChange} />
+                        <p>{value}</p>
+                    </div>
+                    );
+            }
+        });
+
+        React.render(
+            <Input />,
+            document.getElementById('test11')
+            );
+        
+        // ReactLink
+        var WinthLink = React.createClass({
+            mixins: [React.addons.LinkedStateMixin],
+            getInitialState: function(){
+                return {
+                    message: 'hello!'
+                };
+            },
+            render: function(){
+                return (
+                    <input type='text' valueLink={this.linkState('message')} />
+                    );
+            }
+        });
+        React.render(
+            <WinthLink />,
+            document.getElementById('test11_1')
+            );
+    </script>
+</body>
+</html>
